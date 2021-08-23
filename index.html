@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My mao</title>
+    <style>
+        #map{
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <h1>My google maps</h1>
+<div id="map"></div>
+<script>
+    function initMap(){
+
+        //Map options
+        const options = {
+            zoom:8,
+            center:{lat:10.762622,lng:106.660172}
+        };
+
+        // New map
+        var map = new google.maps.Map(document.getElementById('map'),options);
+
+
+        // // Add marker
+        // const marker = new google.maps.Marker({
+        //     position:{lat:10.762622,lng:106.660172},
+        //     map:map,
+        // });
+
+        // const infoWindow = new google.maps.InfoWindow({
+        //     content: '<h3>Điểm hỗ trợ</h3>'
+        // });
+        // marker.addListener('click',function(){
+        //     infoWindow.open(map,marker);
+        // });
+
+        // Array markers
+        const markers = [
+            {
+                coords:{lat:10.762622,lng:106.660172},
+                content: '<h3>1Hỗ trợ danh mục gì? + địa chỉ cụ thể?</h3>'
+            },
+            {
+                coords:{lat:11.0410694,lng:106.6251009},
+                content: '<h3>Đây là Đại Nam Bình Dương</h3>'
+            },
+            {
+                coords :{lat:10.950630,lng:107.211456},
+                content: '<h3>2Hỗ trợ danh mục gì? + địa chỉ cụ thể?</h3>'
+            }
+        ];
+        // loop 
+        let countMarkers = markers.length;
+        for(var i=0; i < countMarkers; i++)
+        {
+            AddMarker(markers[i]);
+        }
+
+        function AddMarker(props){
+            const marker = new google.maps.Marker({
+            position: props.coords,
+            map: map,
+            });
+            if(props.content)
+            {
+                const infoWindow = new google.maps.InfoWindow({
+                    content: props.content
+                });
+                marker.addListener('click',function(){
+                    infoWindow.open(map,marker);
+                });
+            }
+        }
+        // https://www.youtube.com/watch?v=Zxf1mnP5zcw
+    }
+</script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcN-NrRTjhR7rJf1vhtqgIj_FOI_pppGQ&callback=initMap"></script>
+</body>
+</html>
